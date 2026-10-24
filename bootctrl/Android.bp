@@ -3,14 +3,22 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+// The binaries are installed under their own names so they do not collide
+// with the ones built from hardware/qcom-caf/bootctrl, which is always part
+// of the product namespaces on QCOM_HARDWARE targets.
+
 cc_binary {
-    name: "android.hardware.boot-service.qti",
-    defaults: ["android.hardware.boot-service.qti_defaults"],
+    name: "android.hardware.boot-service.sony",
+    defaults: ["android.hardware.boot-service.qti.common"],
+    init_rc: ["android.hardware.boot-service.sony.rc"],
+    vendor: true,
     static_libs: ["libgptutils.sony"],
 }
 
 cc_binary {
-    name: "android.hardware.boot-service.qti.recovery",
-    defaults: ["android.hardware.boot-service.qti.recovery_defaults"],
+    name: "android.hardware.boot-service.sony.recovery",
+    defaults: ["android.hardware.boot-service.qti.common"],
+    init_rc: ["android.hardware.boot-service.sony.recovery.rc"],
+    recovery: true,
     static_libs: ["libgptutils.sony"],
 }

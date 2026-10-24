@@ -107,3 +107,4 @@
 /dev/sda    u:object_r:tee_device:s0
 /dev/sdb    u:object_r:tee_device:s0
 /dev/sdc    u:object_r:tee_device:s0
+/(vendor|odm|vendor/odm)/bin/hw/android\.hardware\.boot-service\.sony    u:object_r:hal_bootctl_default_exec:s0
