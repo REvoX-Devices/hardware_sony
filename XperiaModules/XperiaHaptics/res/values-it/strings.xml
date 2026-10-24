@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2025 XperiaLabs Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name" translatable="true">Xperia Haptics</string>
+    <string name="mediavib_title">Vibrazione Dinamica</string>
+    <string name="mediavib_enable">Utilizzare la Vibrazione Dinamica</string>
+    <string name="mediavib_summary">La vibrazione dinamica migliorerà la tua esperienza multimediale con vibrazioni durante la riproduzione di un film, video o durante l\'ascolto della musica</string>
+    <string name="mediavib_level_title">Livello di Intensità</string>
+    <string name="mediavib_latency_title">Sincronizzazione</string>
+    <string name="mediavib_description">Come Usare\n\nÈ possibile regolare l\'effetto Vibrazione Dinamica per ciascuna app multimediale.\nAvviare un\'app e riprodurre il contenuto desiderato, quindi scorrere verso il basso il pannello Impostazioni rapide, toccare il riquadro e selezionare un effetto.\nSpostare il cursore verso sinistra ritarderà le vibrazioni, mentre spostarlo verso destra farà vibrare il dispositivo prima.\n\nSuggerimenti\n\nQuesta funzione è disponibile quando la Vibrazione Dinamica è attivata nelle Impostazioni di XperiaLabs o tramite il riquadro Impostazioni rapide.</string>
+    <string name="mediavib_tile_enable">Livello: %1$d</string>
+    <string name="mediavib_tile_disable">Spento</string>
+</resources>

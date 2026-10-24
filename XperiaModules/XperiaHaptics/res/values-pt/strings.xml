@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2025 XperiaLabs Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name" translatable="true">Háptica Xperia</string>
+    <string name="mediavib_title">Vibração Dinâmica</string>
+    <string name="mediavib_enable">Utilize Vibração Dinâmica</string>
+    <string name="mediavib_summary">A Vibração Dinâmica aprimorará sua experiência de mídia com vibrações ao reproduzir um filme, vídeo ou ao ouvir música</string>
+    <string name="mediavib_level_title">Nível de Intensidade</string>
+    <string name="mediavib_latency_title">Sincronização</string>
+    <string name="mediavib_description">Como usar\n\nPode ajustar o efeito de Vibração Dinâmica para cada aplicação de multimédia.\nInicie uma aplicação e reproduza o conteúdo à sua escolha, em seguida, deslize para baixo o painel Definições rápidas, toque no mosaico e selecione um efeito.\nMover o controlo de deslize para a esquerda irá atrasar as vibrações, enquanto movê-lo para a direita fará com que o dispositivo vibre mais cedo.\n\nDicas\n\nEsta funcionalidade está disponível enquanto a Vibração Dinâmica estiver ativada nas Definições do XperiaLabs ou através do bloco Definições Rápidas.</string>
+    <string name="mediavib_tile_enable">Nível: %1$d</string>
+    <string name="mediavib_tile_disable">Desligado</string>
+</resources>

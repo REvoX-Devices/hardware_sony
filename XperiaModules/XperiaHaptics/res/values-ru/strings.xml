@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2025 XperiaLabs Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name" translatable="true">Xperia Haptics</string>
+    <string name="mediavib_title">Динамическая Вибрация</string>
+    <string name="mediavib_enable">Используйте Динамическая Вибрация</string>
+    <string name="mediavib_summary">Динамическая вибрация улучшит ваш медиа-опыт за счёт вибраций при просмотре фильмов, видео или прослушивании музыки</string>
+    <string name="mediavib_level_title">Уровень интенсивности</string>
+    <string name="mediavib_latency_title">Синхронизация</string>
+    <string name="mediavib_description">Как использовать\n\nВы можете настроить эффект динамической вибрации для каждого медиаприложения.\nЗапустите приложение и воспроизведите любой контент, затем смахните вниз панель быстрых настроек, коснитесь плитки и выберите эффект.\nПеремещение ползунка влево приведет к задержке вибрации, а перемещение вправо приведет к более ранней вибрации устройства.\n\nСоветы\n\nЭта функция доступна, если в Настройках XperiaLabs или на плитке быстрых настроек включена Динамическая Вибрация.</string>
+    <string name="mediavib_tile_enable">Уровень: %1$d</string>
+    <string name="mediavib_tile_disable">Выкл</string>
+</resources>

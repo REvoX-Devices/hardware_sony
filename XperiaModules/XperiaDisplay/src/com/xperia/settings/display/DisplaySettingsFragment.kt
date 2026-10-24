@@ -1,12 +1,16 @@
 /*
- * Copyright (C) 2023 XperiaLabs Project
+ * Copyright (C) 2025 XperiaLabs Project
  * Copyright (C) 2022 The LineageOS Project
  * SPDX-License-Identifier: Apache-2.0
  */
 
 package com.xperia.settings.display
 
+import android.database.ContentObserver
 import android.os.Bundle
+import android.os.Handler
+import android.os.SystemProperties
+import android.provider.Settings
 import android.util.ArraySet
 import android.view.View
 import android.view.ViewGroup
@@ -24,17 +28,27 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 import com.xperia.settings.display.R
+import com.xperia.settings.display.SemcDisplayUtils.Companion.CREATOR_MODE_ENABLE
+import com.xperia.settings.display.SemcDisplayUtils.Companion.MOTION_BLUR_REDUCTION_ENABLE
+import com.xperia.settings.display.SemcDisplayUtils.Companion.WHITE_BALANCE_PROF
 
-const val CREATOR_MODE_KEY = "switchCreatorMode"
+import com.android.settingslib.widget.SettingsBasePreferenceFragment
 
-class DisplaySettingsFragment : PreferenceFragment(), Preference.OnPreferenceChangeListener {
-    private lateinit var creatorModeUtils: CreatorModeUtils
+class DisplaySettingsFragment : SettingsBasePreferenceFragment(), Preference.OnPreferenceChangeListener {
 
-companion object {
-    private const val DOT_INDICATOR_SIZE = 12
-    private const val DOT_INDICATOR_LEFT_PADDING = 6
-    private const val DOT_INDICATOR_RIGHT_PADDING = 6
-}
+    companion object {
+        private const val DOT_INDICATOR_SIZE = 12
+        private const val DOT_INDICATOR_LEFT_PADDING = 6
+        private const val DOT_INDICATOR_RIGHT_PADDING = 6
+
+        const val CREATOR_MODE_KEY = "switchCreatorMode"
+        const val WHITE_BALANCE_KEY = "white_balance_switch"
+        const val MOTION_BLUR_KEY = "motion_blur_reduction"
+
+        const val DEVICE_GET_PROP = "ro.yaap.device"
+    }
+
+    private lateinit var semcDisplayUtils: SemcDisplayUtils
 
     private val KEY_CREATOR_MODE_PREVIEW = "creator_mode_preview"
     private val PAGE_VIEWER_SELECTION_INDEX = "page_viewer_selection_index"
@@ -48,22 +62,63 @@ companion object {
     private var mDotIndicators: Array<ImageView?>? = null
     private var mViewPagerImages: Array<View?>? = null
 
+    private lateinit var creatorModePreference: SwitchPreferenceCompat
+    private lateinit var motionBlurPreference: SwitchPreferenceCompat
+    private lateinit var whiteBalancePreference: ListPreference
+
+    private val settingsObserver = object : ContentObserver(Handler()) {
+        override fun onChange(selfChange: Boolean) {
+            creatorModePreference.isChecked = semcDisplayUtils.isCMEnabled()
+
+            motionBlurPreference.isChecked = semcDisplayUtils.isMotionBlurReductionEnabled()
+
+            whiteBalancePreference.isEnabled = !semcDisplayUtils.isCMEnabled()
+            whiteBalancePreference.setValueIndex(semcDisplayUtils.getWbProfile())
+        }
+    }
+
+    private fun getDevice(): String {
+        return SystemProperties.get(DEVICE_GET_PROP, "")
+    }
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.display_settings)
-        creatorModeUtils = CreatorModeUtils(context)
+        semcDisplayUtils = SemcDisplayUtils(requireContext())
 
         addViewPager()
 
-        val creatorModePreference = findPreference<SwitchPreference>(CREATOR_MODE_KEY)!!
-        creatorModePreference.isChecked = creatorModeUtils.isEnabled
+        creatorModePreference = findPreference<SwitchPreferenceCompat>(CREATOR_MODE_KEY)!!
+        creatorModePreference.isChecked = semcDisplayUtils.isCMEnabled()
         creatorModePreference.onPreferenceChangeListener = this
+
+        whiteBalancePreference = findPreference<ListPreference>(WHITE_BALANCE_KEY)!!
+        whiteBalancePreference.isEnabled = !semcDisplayUtils.isCMEnabled()
+        whiteBalancePreference.setValueIndex(semcDisplayUtils.getWbProfile())
+        whiteBalancePreference.onPreferenceChangeListener = this
+
+        motionBlurPreference = findPreference<SwitchPreferenceCompat>(MOTION_BLUR_KEY)!!
+        motionBlurPreference.isChecked = semcDisplayUtils.isMotionBlurReductionEnabled()
+        motionBlurPreference.onPreferenceChangeListener = this
+
+        // Hide toggle on other devices as only pdx203 supports this feature (60Hz display)
+        if (getDevice() != "pdx203") {
+            val displayCategory = findPreference<PreferenceCategory>("display_cm_header_category")!!
+            displayCategory.removePreference(motionBlurPreference)
+        }
     }
 
     override fun onPreferenceChange(preference: Preference, newValue: Any?): Boolean {
-        when(preference.key) {
-            CREATOR_MODE_KEY -> creatorModeUtils.setMode(newValue as Boolean)
+        when (preference.key) {
+            MOTION_BLUR_KEY -> {
+                semcDisplayUtils.setMotionBlurReductionEnabled(newValue as Boolean)
+            }
+            WHITE_BALANCE_KEY -> {
+                semcDisplayUtils.setWhiteBalance((newValue as String).toInt())
+            }
+            CREATOR_MODE_KEY -> {
+                semcDisplayUtils.setCMMode(newValue as Boolean)
+            }
         }
-
         return true
     }
 
@@ -113,7 +168,7 @@ companion object {
         val viewGroup = preview.findViewById<ViewGroup>(R.id.viewGroup)
         mDotIndicators = arrayOfNulls(mPageList!!.size)
         for (i in mPageList!!.indices) {
-            val imageView = ImageView(context)
+            val imageView = ImageView(requireContext())
             val lp = ViewGroup.MarginLayoutParams(DOT_INDICATOR_SIZE, DOT_INDICATOR_SIZE)
             lp.setMargins(DOT_INDICATOR_LEFT_PADDING, 0, DOT_INDICATOR_RIGHT_PADDING, 0)
             imageView.layoutParams = lp
@@ -134,7 +189,7 @@ companion object {
                     }
                 } else {
                     mViewPagerImages!![position]!!.contentDescription =
-                    getContext().getString(R.string.creator_mode_content_description)
+                    requireContext().getString(R.string.creator_mode_content_description)
                     updateIndicator(position)
                 }
             }
@@ -166,6 +221,32 @@ companion object {
             mViewArrowPrevious!!.visibility = View.VISIBLE
             mViewArrowNext!!.visibility = View.VISIBLE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireContext().contentResolver?.registerContentObserver(
+            Settings.Global.getUriFor(CREATOR_MODE_ENABLE),
+            true,
+            settingsObserver
+        )
+        requireContext().contentResolver?.registerContentObserver(
+            Settings.Global.getUriFor(MOTION_BLUR_REDUCTION_ENABLE),
+            true,
+            settingsObserver
+        )
+        requireContext().contentResolver?.registerContentObserver(
+            Settings.Global.getUriFor(WHITE_BALANCE_PROF),
+            true,
+            settingsObserver
+        )
+
+        settingsObserver.onChange(false, null)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireContext().contentResolver.unregisterContentObserver(settingsObserver)
     }
 
     class ColorPagerAdapter(private val mPageViewList: ArrayList<View>) : PagerAdapter() {

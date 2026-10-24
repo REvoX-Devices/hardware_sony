@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2025 XperiaLabs Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name" translatable="true">Xperia Haptika</string>
+    <string name="mediavib_title">Dinamikus Rezgés</string>
+    <string name="mediavib_enable">Használja a Dinamikus Rezgés</string>
+    <string name="mediavib_summary">A dinamikus rezgés javítja a médiaélményedet azzal, hogy rezgéseket biztosít film, videó lejátszásakor vagy zenehallgatás közben</string>
+    <string name="mediavib_level_title">Intenzitás Szintje</string>
+    <string name="mediavib_latency_title">Szinkronizálás</string>
+    <string name="mediavib_description">Használati Útmutató\n\nAz egyes médiaalkalmazásokhoz beállíthatja a Dinamikus Rezgés hatást.\nIndítson el egy alkalmazást, és játssza le a kívánt tartalmat, majd húzza lefelé a Gyorsbeállítások panelt, koppintson a csempére, és válasszon ki egy effektust.\nHa a csúszkát balra húzza, az késlelteti a rezgéseket, míg jobbra húzva az eszköz korábban fog rezegni.\n\nTippek\n\nEz a funkció akkor érhető el, ha a Dinamikus Rezgés be van kapcsolva az XperiaLabs Beállításaiban vagy a Gyorsbeállítások csempén keresztül.</string>
+    <string name="mediavib_tile_enable">Szint: %1$d</string>
+    <string name="mediavib_tile_disable">Ki</string>
+</resources>

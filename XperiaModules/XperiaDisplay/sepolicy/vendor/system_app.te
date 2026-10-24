@@ -1,0 +1,10 @@
+# XperiaDisplay
+binder_call(system_app, vendor_hal_disp_default)
+allow system_app vendor_hal_disp_hwservice:hwservice_manager find;
+
+# Framerate controller
+allow system_app vendor_hal_disp_framerate_hwservice:hwservice_manager find;
+
+# Kcal
+allow system_app sysfs_kcal:dir search;
+allow system_app sysfs_kcal:file rw_file_perms;

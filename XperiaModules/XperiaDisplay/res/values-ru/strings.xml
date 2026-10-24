@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2023 XperiaLabs Project
+  ~ Copyright (C) 2024 XperiaLabs Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -21,8 +21,13 @@
 
     <!-- Display Settings -->
     <string name="display_settings_title">Настройки качества изображения</string>
+    <string name="display_setting_summary">Настройте качество изображения в режиме создателя</string>
     <string name="display_cm_header">Цветовая гамма и контрастность</string>
     <string name="display_cm_enable">Режим автора</string>
     <string name="display_cm_summary">Обеспечьте точное воспроизведение замысла создателя с помощью дисплея высокой четкости и специально разработанной обработки изображений, совместимой с цветовой гаммой BT.2020 и 10-битным цветом спецификации HDR.</string>
     <string name="display_settings_footer">Приложения, поддерживающие широкую цветовую гамму, будут автоматически отображаться в исходных цветах.\n\n\nHDR-видео в полноэкранном режиме будет автоматически отображаться в режиме автора.</string>
+    <string name="white_balance_profile_title">Баланс белого</string>
+    <string name="motion_blur_reduction_summary">Отображает чёткое изображение движущихся объектов с уменьшенным размытием движения</string>
+    <string name="motion_blur_reduction_title">Снижение размытия в движении</string>
+
 </resources>

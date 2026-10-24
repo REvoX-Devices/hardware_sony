@@ -14,34 +14,69 @@
 # limitations under the License.
 #
 
-# Flags
-TARGET_SUPPORTS_CREATOR_MODE ?= true
-TARGET_SUPPORTS_HIGH_REFRESH_RATE ?= true
-TARGET_SUPPORTS_SOUND_ENHANCEMENT ?= true
-TARGET_SUPPORTS_SOUND_ENHANCEMENT_DTS ?= true
-TARGET_SUPPORTS_EUICC ?= true
-
 # Soong Namespace
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)/XperiaModules
 
-# Main Module
-PRODUCT_PACKAGES += XperiaSettings
-
-# Submodules
-ifeq ($(TARGET_SUPPORTS_CREATOR_MODE),true)
-	PRODUCT_PACKAGES += XperiaDisplay
-endif
-
-ifeq ($(TARGET_SUPPORTS_HIGH_REFRESH_RATE),true)
-	PRODUCT_PACKAGES += XperiaSwitcher
-endif
-
-ifeq ($(TARGET_SUPPORTS_SOUND_ENHANCEMENT),true)
-	PRODUCT_PACKAGES += \
+# Audio Settings
+ifeq ($(TARGET_SHIPS_SOUND_ENHANCEMENT),true)
+PRODUCT_PACKAGES += \
 	XperiaAudio
 endif
 
+# Battery Care
+ifeq ($(TARGET_SUPPORTS_BATT_CARE),true)
+include hardware/sony/XperiaModules/XperiaCharger/sepolicy/SEPolicy.mk
+
+PRODUCT_PACKAGES += \
+	XperiaCharger
+endif
+
+# Devices
+ifeq ($(TARGET_SHIPS_SONY_APPS),true)
+PRODUCT_PACKAGES += \
+	XperiaDevices
+endif
+
+# Display Settings
+ifeq ($(TARGET_SUPPORTS_CREATOR_MODE),true)
+include hardware/sony/XperiaModules/XperiaDisplay/sepolicy/SEPolicy.mk
+
+PRODUCT_PACKAGES += \
+	XperiaDisplay
+endif
+
+# E-Sim
 ifeq ($(TARGET_SUPPORTS_EUICC),true)
-	PRODUCT_PACKAGES += XperiaEuicc
+PRODUCT_PACKAGES += \
+	XperiaEuicc
+endif
+
+# High Touch Polling Service
+ifeq ($(TARGET_SUPPORTS_HIGH_POLLING_RATE),true)
+include hardware/sony/XperiaModules/XperiaTouch/sepolicy/SEPolicy.mk
+
+PRODUCT_PACKAGES += \
+	XperiaTouch \
+	XperiaTouchOverlay
+endif
+
+# Media Vibration
+ifeq ($(TARGET_SUPPORTS_MEDIA_VIBRATION),true)
+PRODUCT_PACKAGES += \
+	XperiaHaptics
+endif
+
+# Refresh Rate
+ifeq ($(TARGET_SUPPORTS_HIGH_REFRESH_RATE),true)
+PRODUCT_PACKAGES += \
+	XperiaSwitcher
+endif
+
+# Apps Disabler
+ifeq ($(TARGET_SHIPS_XPERIA_DISABLER),true)
+include hardware/sony/XperiaModules/XperiaDisabler/sepolicy/SEPolicy.mk
+
+PRODUCT_PACKAGES += \
+	XperiaDisabler
 endif

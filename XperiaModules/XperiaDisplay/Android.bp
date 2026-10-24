@@ -2,7 +2,9 @@ android_app {
     name: "XperiaDisplay",
     defaults: ["SettingsLibDefaults"],
 
-    srcs: ["src/**/*.kt"],
+    srcs: [
+        "src/**/*.kt",
+    ],
     resource_dirs: ["res"],
 
     certificate: "platform",
