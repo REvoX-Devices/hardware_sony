@@ -19,9 +19,15 @@ PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)/XperiaModules
 
 # Audio Settings
-ifeq ($(TARGET_SHIPS_SOUND_ENHANCEMENT),true)
+ifneq ($(filter true,$(TARGET_SHIPS_SOUND_ENHANCEMENT) $(TARGET_SHIPS_SOUND_ENHANCEMENT_LEGACY)),)
 PRODUCT_PACKAGES += \
 	XperiaAudio
+endif
+
+# Camera key
+ifeq ($(TARGET_SUPPORTS_CAMERA_KEY),true)
+PRODUCT_PACKAGES += \
+	XperiaCamera
 endif
 
 # Battery Care
