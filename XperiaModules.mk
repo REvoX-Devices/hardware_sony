@@ -24,12 +24,6 @@ PRODUCT_PACKAGES += \
 	XperiaAudio
 endif
 
-# Camera key
-ifeq ($(TARGET_SUPPORTS_CAMERA_KEY),true)
-PRODUCT_PACKAGES += \
-	XperiaCamera
-endif
-
 # Battery Care
 ifeq ($(TARGET_SUPPORTS_BATT_CARE),true)
 include hardware/sony/XperiaModules/XperiaCharger/sepolicy/SEPolicy.mk
